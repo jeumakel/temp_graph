@@ -1,6 +1,6 @@
 {
-  "name": "temp_graph",
-  "version": "1.0.0",
+  "name": "temp_graph_server",
+  "version": "1.0.1",
   "description": "mongo temperature  graph app",
   "repository": "N/A",
   "main": "server.js",
