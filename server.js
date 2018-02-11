@@ -1,4 +1,5 @@
-var app = require('express')(),
+var express = require('express'),
+	app = express(),
 	server = require('http').createServer(app),
   	io = require('socket.io')(server),
   	sys = require('util'),
@@ -6,10 +7,12 @@ var app = require('express')(),
 	mongoskin = require('mongoskin'),
   	db = mongoskin.db('mongodb://127.0.0.1:27017/temp_db'),
 	child;
+const port = process.env.PORT || 8000;
 
+app.use(express.static('www'))
 // If all goes well when you open the browser, load the index.html file
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/www/index.html');
+	res.sendFile(__dirname + 'index.html');
 });
  
 // When we open the browser establish a connection to socket.io. 
@@ -41,7 +44,7 @@ io.sockets.on('connection', function(socket) {
 			if (e) {
 				console.log('Socket DB error: ' + e);
 			} else {
-				console.log(results);
+//				console.log(results);
 			}
 			socket.emit('sensorTemperatureUpdate', results);
 
@@ -57,7 +60,7 @@ function testDatabase () {
 			if (e) {
 				console.log('Socket DB error: ' + e);
 			} else {
-				console.log(results);
+//				console.log(results);
 			}
 		});
 	} catch (e) {
@@ -65,5 +68,5 @@ function testDatabase () {
 	}
 }
 
-server.listen(8000);
+server.listen(port);
 testDatabase();
